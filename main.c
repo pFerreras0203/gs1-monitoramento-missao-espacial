@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define MAX_LEITURAS 10
+# define VERMELHO "\033[1;31m"
+#define VERDE "\033[1;32m"
+#define RESET "\033[0m"
 
 float temperatura[MAX_LEITURAS];
 float energia[MAX_LEITURAS];
@@ -9,7 +12,7 @@ int total_leituras = 0;
 
 void inserir_dados(){
     if (total_leituras >= MAX_LEITURAS) {
-        printf("Limite de leituras atingido!\n");
+        printf(VERMELHO "Limite de leituras atingido!\n" RESET);
         system("pause");
         return;
     }
@@ -28,7 +31,7 @@ void inserir_dados(){
     scanf("%d", &comunicacao[i]);
 
     total_leituras++;
-    printf("Leitura %d registrada com sucesso!\n", total_leituras);
+    printf(VERDE "Leitura %d registrada com sucesso!\n" RESET, total_leituras);
     system("pause");
 }
 
@@ -36,25 +39,25 @@ void verificar_alertas(int i){
     int alerta = 0;
 
     if (temperatura[i] > 80) {
-        printf("ALERTA: Superaquecimento! **%.1fC**\n", temperatura[i]);
+        printf(VERMELHO "ALERTA: Superaquecimento! **%.1fC**\n" RESET, temperatura[i]);
         alerta = 1;
     }
     if (energia[i] < 20) {
-        printf("ALERTA: Economia de energia! **%.1fkWh**\n", energia[i]);
+        printf(VERMELHO "ALERTA: Economia de energia! **%.1fkWh**\n" RESET, energia[i]);
         alerta = 1;
     }
     if (comunicacao[i] == 0) {
-        printf("ALERTA: Falha de comunicacao!\n");
+        printf(VERMELHO "ALERTA: Falha de comunicacao!\n" RESET);
         alerta = 1;
     }
     if (!alerta) {
-        printf("Status: Normal\n");
+        printf(VERDE "Status: Normal\n" RESET);
     }
 }
 
 void executar_analise(){
     if (total_leituras ==0){
-        printf("Nenhuma leitura registrada!\n");
+        printf(VERMELHO "Nenhuma leitura registrada!\n" RESET);
         system("pause");
         return;
     }
@@ -69,7 +72,7 @@ void executar_analise(){
 
 void visualizar_status() {
     if (total_leituras == 0) {
-        printf("Nenhuma leitura registrada!\n");
+        printf(VERMELHO "Nenhuma leitura registrada!\n" RESET);
         system("pause");
         return;
     }
@@ -116,16 +119,14 @@ int main(){
                 visualizar_status();
                 break;
             case 0:
-                printf("Saindo do sistema...\n");
+                printf(VERDE "Saindo do sistema...\n" RESET);
                 break;
             default:
-                printf("Opção invalida!\n");
+                printf(VERMELHO "Opcao invalida!\n" RESET);
                 system("pause");
 
         }
     } while (opcao != 0);
-
-
 
     return 0;
 }
