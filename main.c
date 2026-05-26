@@ -1,4 +1,34 @@
 #include <stdio.h>
+#define MAX_LEITURAS 10
+
+float temperatura[MAX_LEITURAS];
+float energia[MAX_LEITURAS];
+int comunicacao[MAX_LEITURAS];
+int total_leituras = 0;
+
+void inserir_dados(){
+    if (total_leituras >= MAX_LEITURAS) {
+        printf("Limite de leituras atingido!\n");
+        return;
+    }
+
+    int i = total_leituras;
+
+    printf("***** INSERIR DADOS *****\n");
+
+    printf("Tempertaura (C):");
+    scanf("%f", &temperatura[i]);
+
+    printf("Energia (kWh):");
+    scanf("%f", &energia[i]);
+
+    printf("Comunicacao (0 = FALHA/1 = OK):");
+    scanf("%d", &comunicacao[i]);
+
+    total_leituras++;
+    printf("Leitura %d registrada com sucesso!\n", total_leituras);
+}
+
 
 int main(){
     
@@ -14,7 +44,7 @@ int main(){
 
         switch (opcao){
             case 1:
-                printf("Inserir dados\n");
+                inserir_dados();
                 break;
             case 2:
                 printf("Visualizar status\n");
